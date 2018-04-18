@@ -1,5 +1,6 @@
 ﻿namespace MultiDialogsBot
 {
+    using System;
     using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -7,6 +8,7 @@
     using Dialogs;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Connector;
+    using MultiDialogsBot.Models;
 
     [BotAuthentication]
     public class MessagesController : ApiController
@@ -19,6 +21,24 @@
         {
             if (activity.Type == ActivityTypes.Message)
             {
+                //Without using any dialogs, send a message back to user
+
+                //ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+                //Activity reply = activity.CreateReply($"From Bot : You said {activity.Text}");
+                //await connector.Conversations.ReplyToActivityAsync(reply);
+
+                //Call Greeting Dialog
+
+                //await Conversation.SendAsync(activity, () => new GreetingDialog());
+
+                //Call HoteBotDialog which is using Forms
+
+                //await Conversation.SendAsync(activity, () => HotelBotDialog.dialog);
+
+                //Call Luis Dialog
+
+                //await Conversation.SendAsync(activity, MakeLuisDialog);
+
                 await Conversation.SendAsync(activity, () => new RootDialog());
             }
             else
@@ -28,6 +48,11 @@
 
             var response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
+        }
+
+        private IDialog<RoomReservation> MakeLuisDialog()
+        {
+            return Chain.From(() => new LUISDialog(RoomReservation.BuildForm));
         }
 
         private Activity HandleSystemMessage(Activity message)

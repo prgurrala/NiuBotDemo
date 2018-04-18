@@ -13,7 +13,7 @@
         private const string FlightsOption = "Flights";
 
         private const string HotelsOption = "Hotels";
-
+        //kicks off dialog
         public async Task StartAsync(IDialogContext context)
         {
             context.Wait(this.MessageReceivedAsync);
