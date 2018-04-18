@@ -1,6 +1,7 @@
 ﻿using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.FormFlow;
 using Microsoft.Bot.Builder.Luis;
+using Microsoft.Bot.Builder.Luis.Models;
 using MultiDialogsBot.Models;
 using System;
 using System.Collections.Generic;

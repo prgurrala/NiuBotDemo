@@ -14,7 +14,7 @@ namespace MultiDialogsBot.Models
     public enum AmenitiesOptions
     {
         Kitchen, 
-        Extra Towels,
+        ExtraTowels,
         Gym
     }
     [Serializable]
