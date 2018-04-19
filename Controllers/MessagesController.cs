@@ -7,7 +7,9 @@
     using System.Web.Http;
     using Dialogs;
     using Microsoft.Bot.Builder.Dialogs;
+    using Microsoft.Bot.Builder.FormFlow;
     using Microsoft.Bot.Connector;
+    using MultiDialogsBot.FormFlow;
     using MultiDialogsBot.Models;
 
     [BotAuthentication]
@@ -17,7 +19,7 @@
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
         /// </summary>
-        public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
+        public virtual async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
             if (activity.Type == ActivityTypes.Message)
             {
@@ -38,6 +40,10 @@
                 //Call Luis Dialog
 
                 //await Conversation.SendAsync(activity, MakeLuisDialog);
+
+                //Call Enquiry Form Flow 
+
+                //await Conversation.SendAsync(activity, () => { return Chain.From(() => FormDialog.FromForm(Enquiry.BuildEnquiryForm)); });
 
                 await Conversation.SendAsync(activity, () => new RootDialog());
             }
