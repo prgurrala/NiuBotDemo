@@ -10,9 +10,9 @@
     [Serializable]
     public class RootDialog : IDialog<object>
     {
-        private const string FlightsOption = "Flights";
+        private const string DoItService = "DoIT Service";
 
-        private const string HotelsOption = "Hotels";
+        private const string GeneralQuestion = "General Question";
         //kicks off dialog
         public async Task StartAsync(IDialogContext context)
         {
@@ -35,7 +35,7 @@
 
         private void ShowOptions(IDialogContext context)
         {
-            PromptDialog.Choice(context, this.OnOptionSelected, new List<string>() { FlightsOption, HotelsOption }, "Are you looking for a flight or a hotel?", "Not a valid option", 3);
+            PromptDialog.Choice(context, this.OnOptionSelected, new List<string>() { DoItService, GeneralQuestion }, "Are you looking for a DoIT Service or General Question?", "Not a valid option", 3);
         }
 
         private async Task OnOptionSelected(IDialogContext context, IAwaitable<string> result)
@@ -46,11 +46,11 @@
 
                 switch (optionSelected)
                 {
-                    case FlightsOption:
+                    case DoItService:
                         context.Call(new FlightsDialog(), this.ResumeAfterOptionDialog);
                         break;
 
-                    case HotelsOption:
+                    case GeneralQuestion:
                         context.Call(new HotelsDialog(), this.ResumeAfterOptionDialog);
                         break;
                 }

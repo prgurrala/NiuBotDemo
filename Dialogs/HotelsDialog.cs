@@ -124,3 +124,69 @@
         }
     }
 }
+
+
+///// <summary>
+///// Simple Dialog, that invokes the QnAMaker if the incoming message is a question
+///// </summary>
+//[Serializable]
+//public class FAQDialog : IDialog<object>
+//{
+//    public async Task StartAsync(IDialogContext context)
+//    {
+//        context.Wait(MessageReceivedAsync);
+//    }
+//    public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
+//    {
+//        var message = await argument;
+//        await context.PostAsync(WebUtility.HtmlDecode(CallQnAMaker(message.Text)));
+//        context.Wait(MessageReceivedAsync);
+//    }
+//    public string CallQnAMaker(string query)
+//    {
+//        string responseString = string.Empty;
+//        var knowledgebaseId = < your KB ID>; // Use knowledge base id created.
+//        var qnamakerSubscriptionKey = < your subscription key>; //Use subscription key assigned to you.
+//                                                                //Build the URI
+//        Uri qnamakerUriBase = new Uri("https://westus.api.cognitive.microsoft.com/qnamaker/v1.0");
+//        var builder = new UriBuilder($"{qnamakerUriBase}/knowledgebases/{knowledgebaseId}/generateAnswer");
+//        //Add the question as part of the body
+//        var postBody = $"{{\"question\": \"{query}\"}}";
+//        //Send the POST request
+//        using (WebClient client = new WebClient())
+//        {
+//            client.Encoding = System.Text.Encoding.UTF8;
+//            //Add the subscription key header
+//            client.Headers.Add("Ocp-Apim-Subscription-Key", qnamakerSubscriptionKey);
+//            client.Headers.Add("Content-Type", "application/json");
+//            responseString = client.UploadString(builder.Uri, postBody);
+//        }
+//        QnAMakerResult response;
+//        try
+//        {
+//            response = JsonConvert.DeserializeObject<QnAMakerResult>(responseString);
+//        }
+//        catch
+//        {
+//            throw new Exception("Unable to deserialize QnA Maker response string.");
+//        }
+//    }
+//    //Callback, after the QnAMaker Dialog returns a result.
+//    public async Task AfterQnA(IDialogContext context, IAwaitable<object> argument)
+//    {
+//        context.Wait(MessageReceivedAsync);
+//    }
+//}
+//class QnAMakerResult
+//{
+//    /// <summary>
+//    /// The top answer found in the QnA Service.
+//    /// </summary>
+//    [JsonProperty(PropertyName = "answer")]
+//    public string Answer { get; set; }
+//    /// <summary>
+//    /// The score in range [0, 100] corresponding to the top answer found in the QnA    Service.
+//    /// </summary>
+//    [JsonProperty(PropertyName = "score")]
+//    public double Score { get; set; }
+//}
