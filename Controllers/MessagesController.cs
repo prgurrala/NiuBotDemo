@@ -43,9 +43,9 @@
 
                 //Call Enquiry Form Flow 
 
-                //await Conversation.SendAsync(activity, () => { return Chain.From(() => FormDialog.FromForm(Enquiry.BuildEnquiryForm)); });
+                await Conversation.SendAsync(activity, () => { return Chain.From(() => FormDialog.FromForm(Enquiry.BuildEnquiryForm)); });
 
-                await Conversation.SendAsync(activity, () => new RootDialog());
+                //await Conversation.SendAsync(activity, () => new RootDialog());
             }
             else
             {

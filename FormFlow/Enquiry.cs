@@ -1,4 +1,5 @@
-﻿using Microsoft.Bot.Builder.FormFlow;
+﻿using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.FormFlow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,26 +12,34 @@ namespace MultiDialogsBot.FormFlow
     {
         [Prompt("What is Your Name?")]
         public string Name { get; set; }
-        [Prompt("What is your Company Name?")]
-        public string Company { get; set; }
-        [Prompt("What is your job title there??")]
-        public string JobTitle { get; set; }
-        [Prompt("What is best number to contact you?")]
-        public  string Phone { get; set; }
-        [Prompt("Can we help you with anything else?")]
-        public string HowCanIHelp { get; set; }
-        [Prompt("Would you like us to add to our Email List? {||}")]
-        public bool SignMeUpToTheEmailList { get; set; }
+        [Prompt("What is your Account ID?")]
+        public string AccountID { get; set; }
+        [Prompt("What is Source URL?")]
+        public string SourceURL { get; set; }
+        [Prompt("What is Destination URL?")]
+        public string DestinationURL { get; set; }
+        //[Prompt("Can we help you with anything else?")]
+        //public string HowCanIHelp { get; set; }
+        //[Prompt("Would you like us to add to our Email List? {||}")]
+        //public bool SignMeUpToTheEmailList { get; set; }
         [Prompt("Which Service are you interested in? {||}")]
         public Service ServiceRequired { get; set; }
-        public enum Service { Consultancy, Support, ProjectDelivery, Other}
+        public enum Service { RedirectURL, Redirect, Firewall, Other}
 
         public static IForm<Enquiry> BuildEnquiryForm()
         {
+            OnCompletionAsyncDelegate<Enquiry> processHotelsSearch = async (context, state) =>
+            {
+                await context.PostAsync($"Thank you {state.Name}. Account ID : {state.AccountID} Your request will be processed soon. A redirect will be added from  {state.SourceURL} to {state.DestinationURL}. Enter any key to restart bot conversation...");
+            };
+
             return new FormBuilder<Enquiry>()
-                .Field("SignMeUpToTheEmailList")
+                .Message("Please enter details for DoIT to process your request....")
+                .Field("Name")
+                .Field("AccountID")
                 .Field("ServiceRequired")
                 .AddRemainingFields()
+                .OnCompletion(processHotelsSearch)
                 .Build();
         }
     }

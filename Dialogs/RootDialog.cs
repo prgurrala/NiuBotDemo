@@ -10,7 +10,7 @@
     [Serializable]
     public class RootDialog : IDialog<object>
     {
-        private const string DoItService = "DoIT Service";
+        private const string DoItService = "DoIT Services";
 
         private const string GeneralQuestion = "General Question";
         //kicks off dialog
@@ -47,11 +47,12 @@
                 switch (optionSelected)
                 {
                     case DoItService:
-                        context.Call(new FlightsDialog(), this.ResumeAfterOptionDialog);
+                        //context.Call(new HotelBotDialog(), this.ResumeAfterOptionDialog);
+                        context.Call(new HotelsDialog(), this.ResumeAfterOptionDialog);
                         break;
 
                     case GeneralQuestion:
-                        context.Call(new HotelsDialog(), this.ResumeAfterOptionDialog);
+                        context.Call(new FlightsDialog(), this.ResumeAfterOptionDialog);
                         break;
                 }
             }

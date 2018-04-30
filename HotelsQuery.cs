@@ -6,14 +6,26 @@
     [Serializable]
     public class HotelsQuery
     {
-        [Prompt("Please enter your {&}")]
-        public string Destination { get; set; }
-        
-        [Prompt("When do you want to {&}?")]
-        public DateTime CheckIn { get; set; }
+        public enum ServiceOptions
+        {
+            CreateRedirect, RedirectURL
+        }
 
-        [Numeric(1, int.MaxValue)]
-        [Prompt("How many {&} do you want to stay?")]
-        public int Nights { get; set; }
+        [Prompt("Please enter your {&}")]
+        public ServiceOptions? Service;
+
+
+        [Prompt("Please enter your {&}?")]
+        public string Name { get; set; }
+
+        [Prompt("Please enter your {&}?")]
+        public string AccountID { get; set; }
+
+
+        [Prompt("Please enter your Source URL?")]
+        public string SourceURL { get; set; }
+
+        [Prompt("Please enter your Destination URL?")]
+        public string DestinationURL { get; set; }
     }
 }

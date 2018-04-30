@@ -10,7 +10,7 @@
     {
         public async Task StartAsync(IDialogContext context)
         {
-            context.Fail(new NotImplementedException("Flights Dialog is not implemented and is instead being used to show context.Fail"));
+            context.Fail(new NotImplementedException("This is work in progress!!"));
         }
     }
 }
